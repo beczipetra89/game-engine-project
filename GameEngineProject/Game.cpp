@@ -1,6 +1,13 @@
 #include "Game.h"
 #include <iostream>
+
 using namespace std;
+
+SDL_Texture* playerTex;
+SDL_Rect scrRect, destRect; // source rectangle: which part of texture to render, detination: where to draw on screen
+
+
+
 
 Game::Game() {//Constructor
 
@@ -12,6 +19,7 @@ Game::~Game() {//Deconstructor
 void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
 	int flags = 0; //if we want fullscreen, just set this flag value
+	
 	if (fullscreen)
 	{
 		flags = SDL_WINDOW_FULLSCREEN;
@@ -41,6 +49,11 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	else {
 		isRunning = false;
 	}
+
+	//LOAD PLAYER OBJECT´s SPRITE
+	SDL_Surface* tmpSurface = IMG_Load("assets/player.png");
+	playerTex = SDL_CreateTextureFromSurface(renderer, tmpSurface);
+	SDL_FreeSurface(tmpSurface); // Clean up after its not needed anymore
 }
 
 //Initialize SDL
@@ -64,6 +77,15 @@ void Game::handleEvents()
 void Game::update()
 {
 	count++; //every time this get´s updated, it iwll increment the counter by 1
+
+	// player texture size, destination rectangle consider image's size
+	destRect.h = 64;  //scaling the player image texture 32x32, 64x64 ect and pass it to the renderer()/ destination rectangle
+	destRect.w = 64;
+	
+	destRect.x = count;  // MOVEMENT: this makes the player character to auto move to the right out of the screen
+
+
+
 	std::cout << count << std::endl;
 }
 
@@ -73,6 +95,10 @@ void Game::render()
 	//Clear the renderer´s buffer
 	SDL_RenderClear(renderer);
 	// This is where to add things to the render------------------------
+
+	//Add player texture to renderer, and position it on the screen
+	SDL_RenderCopy(renderer, playerTex, NULL, &destRect );  //(renderer, texture to render, source rectangle (the part of the texture I want to draw), destination rectangle (where to draw that on the screen)
+
 	SDL_RenderPresent(renderer);
 }
 
