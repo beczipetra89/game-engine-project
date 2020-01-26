@@ -13,7 +13,10 @@ public:
 
 private:
 	int xpos;
-	int ypos;
+	int ypos, initialYpos;
+	int verticalDirection; // -1 upwards +1 downwards 
+	int horizontialSpeed;
+	int verticalSpeed;
 
 	SDL_Texture* objTexture;
 	SDL_Rect srcRect, destRect;
