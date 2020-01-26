@@ -1,14 +1,13 @@
 #include "Game.h"
 #include "TextureManager.h"
 #include <iostream>
+#include "GameObject.h"
 
 using namespace std;
 
-SDL_Texture* playerTex;
-SDL_Rect scrRect, destRect; // source rectangle: which part of texture to render, detination: where to draw on screen
-
-
-
+//Create Game Objects, player, enemies etc
+GameObject* player;
+GameObject* enemy;
 
 Game::Game() {//Constructor
 
@@ -51,8 +50,11 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 	}
 
-	//LOAD PLAYER OBJECT큦 SPRITE
-	playerTex = TextureManager::LoadTexture("assets/player.png", renderer);
+	//LOAD GAMEOBJECT큦 TEXTURE AND POSITION THEM ON SCREEN
+	player = new GameObject("assets/player.png", renderer, 0, 0); //0, 0 is xpos and ypos, initial position on screen
+	enemy = new GameObject("assets/enemy.png", renderer, 50, 50);
+
+
 }
 
 //Initialize SDL
@@ -75,17 +77,11 @@ void Game::handleEvents()
 }
 void Game::update()
 {
-	count++; //every time this get큦 updated, it iwll increment the counter by 1
-
+	//MOVEMENTS
 	// player texture size, destination rectangle consider image's size
-	destRect.h = 64;  //scaling the player image texture 32x32, 64x64 ect and pass it to the renderer()/ destination rectangle
-	destRect.w = 64;
-	
-	destRect.x = count;  // MOVEMENT: this makes the player character to auto move to the right out of the screen
+	player->Update();
+	enemy->Update();
 
-
-
-	std::cout << count << std::endl;
 }
 
 //Render the objects to the screen
@@ -93,11 +89,11 @@ void Game::render()
 {
 	//Clear the renderer큦 buffer
 	SDL_RenderClear(renderer);
-	// This is where to add things to the render------------------------
+	
+	// This is where to add things to the render************************************************************************
 
-	//Add player texture to renderer, and position it on the screen
-	SDL_RenderCopy(renderer, playerTex, NULL, &destRect );  //(renderer, texture to render, source rectangle (the part of the texture I want to draw), destination rectangle (where to draw that on the screen)
-
+	player->Render(); //Place player to the screen, and position is done in GameObject class
+	enemy->Render();
 	SDL_RenderPresent(renderer);
 }
 
