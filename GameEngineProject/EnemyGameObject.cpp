@@ -12,6 +12,8 @@ EnemyGameObject::EnemyGameObject(const char* texturesheet, int x, int y)
 	//Set initial position
 	xpos = x;
 	ypos = y;
+
+	//int speed = 10;
 }
 
 EnemyGameObject::~EnemyGameObject()
@@ -20,8 +22,9 @@ EnemyGameObject::~EnemyGameObject()
 
 void EnemyGameObject::Update()
 {
-	xpos++;
-	ypos++;
+	
+	xpos--;
+	//ypos++;
 	
 
 	//SDL_Rect scrRect, destRect; source rectangle: which part of texture to render, detination: where to draw on screen

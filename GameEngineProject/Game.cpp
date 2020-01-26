@@ -54,10 +54,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	}
 
 	//LOAD GAMEOBJECT´s TEXTURE AND POSITION THEM ON SCREEN
-	player = new PlayerGameObject("assets/player.png", 0, 0); //0, 0 is xpos and ypos, initial position on screen
-	enemy = new EnemyGameObject("assets/enemy.png", 50, 50);
-
-
+	player = new PlayerGameObject("assets/player.png", 30, height/2); //0, 0 is xpos and ypos, initial position on screen
+	enemy = new EnemyGameObject("assets/enemy.png", width+2, height/2);
 }
 
 //Initialize SDL
