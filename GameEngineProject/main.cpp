@@ -27,7 +27,7 @@ int main(int argc, char* args[])
 
 
 	game = new Game();
-	game->init("MyGame", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 900, 700, false);  // true or false for fullscreen
+	game->init("MyGame", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 900, 740, false);  // true or false for fullscreen
 
 	// THE GAME LOOP
 	while (game->running()) {

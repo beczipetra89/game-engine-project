@@ -1,13 +1,16 @@
 #include "Game.h"
 #include "TextureManager.h"
 #include <iostream>
-#include "GameObject.h"
+#include "PlayerGameObject.h"
+#include "EnemyGameObject.h"
 
 using namespace std;
 
 //Create Game Objects, player, enemies etc
-GameObject* player;
-GameObject* enemy;
+PlayerGameObject* player;
+EnemyGameObject* enemy;
+
+SDL_Renderer* Game::renderer = nullptr;
 
 Game::Game() {//Constructor
 
@@ -51,8 +54,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	}
 
 	//LOAD GAMEOBJECT´s TEXTURE AND POSITION THEM ON SCREEN
-	player = new GameObject("assets/player.png", renderer, 0, 0); //0, 0 is xpos and ypos, initial position on screen
-	enemy = new GameObject("assets/enemy.png", renderer, 50, 50);
+	player = new PlayerGameObject("assets/player.png", 0, 0); //0, 0 is xpos and ypos, initial position on screen
+	enemy = new EnemyGameObject("assets/enemy.png", 50, 50);
 
 
 }
@@ -92,7 +95,7 @@ void Game::render()
 	
 	// This is where to add things to the render************************************************************************
 
-	player->Render(); //Place player to the screen, and position is done in GameObject class
+	player->Render(); //Place player to the screen, and position is done in PlayerGameObject class
 	enemy->Render();
 	SDL_RenderPresent(renderer);
 }

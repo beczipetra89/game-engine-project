@@ -15,18 +15,18 @@ public:
 
 	void handleEvents();
 	void update();
+	bool running() { return isRunning; } //function to let the main function know that the game should be still running
 	void render();
 	void clean();
 
-	//function to let the main function know that the game should be still running
-	bool running() { return isRunning; }
+	static SDL_Renderer *renderer;
 
 private:
-	int count = 0;
+	
 	// ask the Game class whether it´s true then handle all the events and update render
 	bool isRunning;
+	int count = 0;
 	SDL_Window* window;
-	SDL_Renderer* renderer;
 };
 
 #endif /*Game_h*/#pragma once
